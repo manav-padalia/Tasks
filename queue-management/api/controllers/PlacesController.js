@@ -118,7 +118,7 @@ module.exports = {
       const places = await Places.find().sort([{ createdAt: "DESC" }]);
 
       //if places not find then first place create with prefix alphabet A else that follow ascii value for next prefix generate
-      if ((places = null)) {
+      if ((places.length == 0)) {
         const alph = "A";
         //create new place with place name and generated prefix(alph)
         await Places.create({
