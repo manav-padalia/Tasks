@@ -19,15 +19,24 @@ module.exports.policies = {
   // "/adminlogout":"Auth",
 
   UserController: {
-    userLogout: "Auth",
+    userLogout: "userAuth",
   },
   AdminController: {
-    adminLogout: "Auth",
+    adminLogout: "adminAuth",
   },
   PlacesController: {
-    "*": "Auth",
+    userPlaces : "userAuth",
+    adminPlaces: "adminAuth",
+    addPlace: "adminAuth",
+    editPlace: "adminAuth",
+    updatePlace: "adminAuth",
+    deletePlace : "adminAuth"
   },
   TicketController: {
-    "*": "Auth",
+    userPendingTicket: "userAuth",
+    userProcessedTicket: "userAuth",
+    createTicket: "userAuth",
+    adminTicket: "adminAuth",
+    proceedTicket: "adminAuth"
   },
 };
