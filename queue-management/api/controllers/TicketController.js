@@ -30,8 +30,8 @@ module.exports = {
         status: "Processed",
       });
       res.status(200).send(ticketProcessed);
-    }else{
-      res.status(400)
+    } else {
+      res.status(400);
     }
   },
 
@@ -60,7 +60,7 @@ module.exports = {
         const ticketNo = "001";
 
         //ticket create with specific place with specific owner
-        await Ticket.create({
+        const newTicket = await Ticket.create({
           id: randomUUID(),
           ticketNo: ticketNo,
           createdAt: date,
@@ -69,8 +69,10 @@ module.exports = {
           status: status,
           placeAlph: place.alph,
           owner: userId.id,
-        });
-        res.status(200).json({ message: "Ticket generated successfully." });
+        }).fetch();
+        res
+          .status(200)
+          .json({ message: "Ticket generated successfully." }, newTicket);
       } else {
         //if tickets get from database then check last generated ticket and create next ticket
         let ticno = tickets[0].ticketNo;
@@ -80,7 +82,7 @@ module.exports = {
           let ticketNo = "00" + (parseInt(ticno) + 1);
 
           //ticket create with specific place with specific owner
-          await Ticket.create({
+          const newTicket = await Ticket.create({
             id: randomUUID(),
             ticketNo: ticketNo,
             createdAt: date,
@@ -89,8 +91,10 @@ module.exports = {
             status: status,
             placeAlph: place.alph,
             owner: userId.id,
-          });
-          res.status(200).json({ message: "Ticket generated successfully." });
+          }).fetch();
+          res
+            .status(200)
+            .json({ message: "Ticket generated successfully." }, newTicket);
         }
 
         //if ticket is greater then 99 then that store three digit new ticket
@@ -98,7 +102,7 @@ module.exports = {
           let ticketNo = parseInt(ticno) + 1;
 
           //ticket create with specific place with specific owner
-          await Ticket.create({
+          const newTicket = await Ticket.create({
             id: randomUUID(),
             ticketNo: ticketNo,
             createdAt: date,
@@ -107,14 +111,16 @@ module.exports = {
             status: status,
             placeAlph: place.alph,
             owner: userId.id,
-          });
-          res.status(200).json({ message: "Ticket generated successfully." });
+          }).fetch();
+          res
+            .status(200)
+            .json({ message: "Ticket generated successfully." }, newTicket);
         }
         //if ticket is greater then 9 then that store with a extra zero
         else if (parseInt(ticno) >= 9) {
           let ticketNo = "0" + (parseInt(ticno) + 1);
           //ticket create with specific place with specific owner
-          await Ticket.create({
+          const newTicket = await Ticket.create({
             id: randomUUID(),
             ticketNo: ticketNo,
             createdAt: date,
@@ -124,7 +130,9 @@ module.exports = {
             placeAlph: place.alph,
             owner: userId.id,
           });
-          res.status(200).json({ message: "Ticket generated successfully." });
+          res
+            .status(200)
+            .json({ message: "Ticket generated successfully." }, newTicket);
         }
       }
     } catch (error) {
