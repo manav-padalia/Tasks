@@ -19,7 +19,7 @@ module.exports = {
       let places = await Places.find({
         placename: { contains: search },
       })
-        .populate("ticket")
+        .populate("ticket",{where:{status:"Pending"}})
         .select("placename");
       res.status(200).json({ Places: places, places: places.length });
     }
@@ -27,7 +27,7 @@ module.exports = {
     //if not get search then show all places
     else {
       //find all place's placename
-      let places = await Places.find({}).populate("ticket").select("placename");
+      let places = await Places.find({}).populate("ticket",{where:{status:"Pending"}}).select("placename");
       res.status(200).json({ Places: places, places: places.length });
     }
   },
@@ -42,14 +42,14 @@ module.exports = {
       let places = await Places.find({
         placename: { contains: search },
       })
-        .populate("ticket")
+        .populate("ticket",{where:{status:"Pending"}})
         .select("placename");
       res.status(200).json({ Places: places, places: places.length });
     }
 
     //if not get search then show all places
     else {
-      let places = await Places.find({}).populate("ticket").select("placename");
+      let places = await Places.find({}).populate("ticket",{where:{status:"Pending"}}).select("placename");
       res.status(200).json({ Places: places, places: places.length });
     }
   },
